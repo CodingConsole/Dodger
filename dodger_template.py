@@ -1,4 +1,5 @@
 import sys, pygame, threading, time, os
+from source.neural_net import *
 from random import *
 pygame.init()
 os.environ['SDL_VIDEODRIVER'] = 'directx'
@@ -8,12 +9,13 @@ def start():
     pygame.display.set_caption("Dodger")
 
     screen.fill((255, 255, 255))
-    global x, y, score, move, wy, wx, done
+    global x, y, score, move, wy, wx, done, current_obs
     #player variables
     x = 50; y = 475
     move = 0
 
     score = 0
+    current_obs = 0
     #initiate walls
     cache = int(random() * 900)
     wy = [[cache, cache + 100], 0, 0]
@@ -33,7 +35,7 @@ def start():
 
 #start game loop
 def game():
-    global move, y, wx, death
+    global move, y, wx, current_obs
     while(done == False):
         screen.fill((255, 255, 255))
         #Playermovement
@@ -92,7 +94,7 @@ def reset_walls():#real time wall check and reset
     pass
 
 def collision_test():#test player collisions and score responsible
-    global score, done, screen, death
+    global score, done, screen, current_obs
     while (done == False):
         for i in range(3):
             if(wx[i] > 50 and wx[i] < 80):
@@ -100,7 +102,7 @@ def collision_test():#test player collisions and score responsible
                     score += 1
                     time.sleep(1)
                 else:
-                    death = i
+                    current_obs = i
                     done = True
                     pass
                 pass
@@ -115,11 +117,12 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 screen.fill((255, 255, 255))
 #player variables
+ai = neuralNetwork(3, 2, 3, 0.2)
 x = 50; y = 475
 move = 0
 
 score = 0
-death = 0
+current_obs = 0
 #initiate walls
 cache = int(random() * 900)
 wy = [[cache, cache + 100], 0, 0]
