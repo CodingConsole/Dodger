@@ -1,5 +1,4 @@
 import sys, pygame, threading, time, os
-from source.neural_net import *
 from random import *
 pygame.init()
 os.environ['SDL_VIDEODRIVER'] = 'directx'
@@ -78,8 +77,8 @@ def game():
         pygame.display.update()
         time.sleep(0.005)
         pass
-    pygame.draw.rect(screen, (255, 0, 0), (wx[death] + 3, 0, 30, wy[death][0]), 0)
-    pygame.draw.rect(screen, (255, 0, 0), (wx[death] + 3, wy[death][1], 30, 1000), 0)
+    pygame.draw.rect(screen, (255, 0, 0), (wx[current_obs] + 3, 0, 30, wy[current_obs][0]), 0)
+    pygame.draw.rect(screen, (255, 0, 0), (wx[current_obs] + 3, wy[current_obs][1], 30, 1000), 0)
     pygame.display.update()
 
 def reset_walls():#real time wall check and reset
@@ -117,7 +116,6 @@ font = pygame.font.Font('freesansbold.ttf', 32)
 
 screen.fill((255, 255, 255))
 #player variables
-ai = neuralNetwork(3, 2, 3, 0.2)
 x = 50; y = 475
 move = 0
 
