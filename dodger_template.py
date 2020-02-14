@@ -3,35 +3,6 @@ from random import *
 pygame.init()
 os.environ['SDL_VIDEODRIVER'] = 'directx'
 
-def start():
-    screen = pygame.display.set_mode((1500, 1000))
-    pygame.display.set_caption("Dodger")
-
-    screen.fill((255, 255, 255))
-    global x, y, score, move, wy, wx, done, current_obs
-    #player variables
-    x = 50; y = 475
-    move = 0
-
-    score = 0
-    current_obs = 0
-    #initiate walls
-    cache = int(random() * 900)
-    wy = [[cache, cache + 100], 0, 0]
-    wx = [1500, 2300, 3100]
-
-    cache = int(random() * 900)
-    wy[1] = [cache, cache + 100]
-
-    cache = int(random() * 900)
-    wy[2] = [cache, cache + 100]
-
-
-    pygame.display.update()
-
-    done = False
-    pass
-
 #start game loop
 def game():
     global move, y, wx, current_obs
@@ -140,5 +111,3 @@ reseter.start()
 collider = threading.Thread(target = collision_test, daemon = True)
 collider.start()
 game()
- 
-#pygame.quit()
